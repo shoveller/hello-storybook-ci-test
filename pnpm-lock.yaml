@@ -72,6 +72,9 @@ importers:
       globals:
         specifier: ^15.14.0
         version: 15.14.0
+      playwright:
+        specifier: ^1.49.1
+        version: 1.49.1
       storybook:
         specifier: ^8.4.7
         version: 8.4.7
