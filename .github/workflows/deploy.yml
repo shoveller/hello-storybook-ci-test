@@ -6,8 +6,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/playwright:v1.42.1-jammy
     steps:
     - name: 체크아웃
       uses: actions/checkout@v4
@@ -26,11 +24,8 @@ jobs:
     - name: 스토리북 서버 대기
       run: pnpm dlx wait-on tcp:6006 # 서버가 준비될 때까지 대기
         
-    # - name: Playwright 브라우저(Chromium) 설치
-    #   run: pnpm exec playwright install chromium
-        
     - name: 테스트 실행
-      run: pnpm test
+      run: pnpm exec playwright install && pnpm test
 
   deploy:
     needs: test
