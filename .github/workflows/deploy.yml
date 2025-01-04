@@ -4,7 +4,7 @@ on:
     branches:
       - develop
 jobs:
-  deploy:
+  prepare:
     runs-on: ubuntu-latest
     steps:
       - name: 체크아웃
@@ -18,9 +18,23 @@ jobs:
       - name: 준비
         run: pnpm i --frozen-lockfile
 
-      - name: 빌드
-        run: pnpm build
+  test:
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+    - name: 스토리북 서버 시작
+      run: pnpm storybook --ci --port 6006 & # 백그라운드로 실행
+        
+    - name: 스토리북 서버 대기
+      run: pnpm dlx wait-on tcp:6006 # 서버가 준비될 때까지 대기
+        
+    - name: 테스트 실행
+      run: pnpm test
 
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
       - name: gh-pages에 배포
         uses: peaceiris/actions-gh-pages@v4
         with:
