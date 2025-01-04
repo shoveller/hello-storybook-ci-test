@@ -12,6 +12,8 @@ jobs:
     
       - name: pnpm 설치
         uses: pnpm/action-setup@v4
+        with:
+          version: 9
 
       - name: 준비
         run: pnpm i --frozen-lockfile
