@@ -4,22 +4,11 @@ on:
     branches:
       - develop
 jobs:
-  prepare:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 체크아웃
-        uses: actions/checkout@v4
-    
-      - name: pnpm 설치
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-
-      - name: 준비
-        run: pnpm i --frozen-lockfile
+  setup:
+    uses: ./.github/workflows/setup.yml
 
   test:
-    needs: prepare
+    needs: setup
     runs-on: ubuntu-latest
     steps:
     - name: 스토리북 서버 시작
