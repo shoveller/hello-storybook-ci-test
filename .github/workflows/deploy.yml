@@ -4,13 +4,20 @@ on:
     branches:
       - develop
 jobs:
-  setup:
-    uses: ./.github/workflows/setup.yml
-
   test:
-    needs: setup
     runs-on: ubuntu-latest
     steps:
+    - name: 체크아웃
+      uses: actions/checkout@v4
+
+    - name: pnpm 설치
+      uses: pnpm/action-setup@v4
+      with:
+        version: 9
+
+    - name: 준비
+      run: pnpm i --frozen-lockfile
+
     - name: 스토리북 서버 시작
       run: pnpm storybook --ci --port 6006 & # 백그라운드로 실행
         
@@ -21,9 +28,22 @@ jobs:
       run: pnpm test
 
   deploy:
-    needs: test
     runs-on: ubuntu-latest
     steps:
+      - name: 체크아웃
+        uses: actions/checkout@v4
+    
+      - name: pnpm 설치
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: 준비
+        run: pnpm i --frozen-lockfile
+
+      - name: 빌드
+        run: pnpm build
+
       - name: gh-pages에 배포
         uses: peaceiris/actions-gh-pages@v4
         with:
