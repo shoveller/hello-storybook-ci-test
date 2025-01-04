@@ -25,9 +25,10 @@ jobs:
       run: pnpm dlx wait-on tcp:6006 # 서버가 준비될 때까지 대기
         
     - name: 테스트 실행
-      run: pnpm test
+      run: pnpm exec playwright install && pnpm test
 
   deploy:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: 체크아웃
