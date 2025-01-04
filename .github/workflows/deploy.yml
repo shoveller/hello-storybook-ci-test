@@ -1,0 +1,22 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 체크아웃
+        uses: actions/checkout@v4
+    
+      - name: pnpm 설치
+        uses: pnpm/action-setup@v4
+
+      - name: 준비
+        run: pnpm i --frozen-lockfile
+
+      - name: 빌드
+        run: pnpm build
+
+
