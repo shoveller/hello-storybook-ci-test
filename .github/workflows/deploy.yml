@@ -28,7 +28,7 @@ jobs:
       run: pnpm exec playwright install --with-deps chromium
         
     - name: 테스트 실행
-      run: npm run test-storybook --coverage
+      run: npx test-storybook --coverage
 
   deploy:
     needs: test
