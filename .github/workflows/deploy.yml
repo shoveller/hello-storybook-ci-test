@@ -23,9 +23,12 @@ jobs:
         
     - name: 스토리북 서버 대기
       run: pnpm dlx wait-on tcp:6006 # 서버가 준비될 때까지 대기
+
+    - name: Install Playwright
+      run: pnpm exec playwright install --with-deps chromium
         
     - name: 테스트 실행
-      run: pnpm exec playwright install chromium && pnpm test
+      run: pnpm test
 
   deploy:
     needs: test
