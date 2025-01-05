@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006 --ci",
     "build-storybook": "storybook build",
-    "test": "test-storybook --coverage --coverageDirectory coverage --coverageReporters json-summary"
+    "test": "test-storybook --coverage"
   },
   "dependencies": {
     "react": "^18.3.1",
