@@ -2,7 +2,7 @@ import type { Preview } from "@storybook/react";
 
 declare global {
   interface Window {
-    __test: boolean;
+    __test: boolean | (() => void);
   }
 }
 
@@ -18,6 +18,6 @@ const preview: Preview = {
 };
 
 // 테스트 환경을 위한 전역 변수 설정
-window.__test = true;
+window.__test = () => { };
 
 export default preview;
